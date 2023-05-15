@@ -1,32 +1,17 @@
-const renderSection = (emails, element) => {
-  element.innerHTML = emails
-    .map((email) => {
-      let iconClass = 'opened';
-      if (email.unread) {
-        iconClass = 'closed';
-      };
+import {Email} from "./Email/index.js";
+import {EmailSection} from "./EmailSection/index.js";
 
-      return `
-        <div class="email">
-          <div class="email__head">
-            <button class="email__icon email__icon--${iconClass}"></button>
-            <div class="email__info">
-              <div class="email__sender">${email.sender.name}</div>
-              <div class="email__subject">${email.subject}</div>
-            </div>
-            <div class="email__time">${email.time}</div>
-          </div>
-          <div class="email__body"></div>
-        </div>
-      `;
-    })
-    .join('');
-};
+const emailApp = document.querySelector('#app');
 
-fetch(`https://apps.kodim.cz/daweb/trening-api/apis/emails?folder=unread`)
-  .then((response) => response.json())
-  .then((data) => renderSection(data.emails, document.getElementById('unread')));
+const mainTitle = document.createElement('h1');
+mainTitle.textContent = 'Příchozí pošta';
+emailApp.append(mainTitle)
 
-fetch(`https://apps.kodim.cz/daweb/trening-api/apis/emails?folder=read`)
-  .then((response) => response.json())
-  .then((data) => renderSection(data.emails, document.getElementById('read')));
+const sectionUnread = EmailSection({heading: 'Nové emaily', emails: [], folder: 'unread'});
+emailApp.append(sectionUnread);
+
+const sectionRead = EmailSection({heading: 'Přečtené emaily', emails: [], folder: 'read'});
+emailApp.append(sectionRead);
+
+
+
