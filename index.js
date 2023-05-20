@@ -1,4 +1,3 @@
-import {Email} from "./Email/index.js";
 import {EmailSection} from "./EmailSection/index.js";
 
 const emailApp = document.querySelector('#app');
@@ -12,6 +11,8 @@ emailApp.append(sectionUnread);
 
 const sectionRead = EmailSection({heading: 'Přečtené emaily', emails: [], folder: 'read'});
 emailApp.append(sectionRead);
+
+
 
 
 
